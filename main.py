@@ -30,6 +30,9 @@ def upper_to_lower(text):
             text = upper_to_lower(text)
             print(input_text)
             print(text)
+            if input_text == 'stop':
+                print('Recordig stopped ...')
+                break
 
             if lower_input_text == text:
                 print("correct")
