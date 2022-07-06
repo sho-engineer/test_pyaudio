@@ -21,7 +21,7 @@ def parse_text(text):
 def upper_to_lower(text):
     return text.lower()
 
-if __name__ == '__main__':
+            input_text = execute_dictation()
     # execute_record()
     try:
         for text in parse_text(TEXTS[0]):
