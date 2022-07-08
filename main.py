@@ -25,7 +25,36 @@ def parse_text(text):
 def upper_to_lower(text):
     return text.lower()
 
-            input_text = execute_dictation()
+def get_today_date():
+    '''
+    get date today
+    :return today:string year and date today
+    :note returns only "date" excluding time and second
+    '''
+    import datetime
+    today = datetime.date.today().strftime('%Y%m%d')
+    return today
+
+def init_record_setting():
+    '''
+    initialize the setting for rescording
+    '''
+    # buffer size
+    CHUNK = 2**10
+    # quantization bit rate 
+    FORMAT = pyaudio.paInt16
+    # the number of used microphones 
+    CHANNELS = 1
+    # the time to record(length)
+    record_time = 5
+    RATE = 44100
+    # get ready to save the record data
+    date_today = get_today_date()
+    output_path =  os.path.join("recorded_voices", f'{date_today}_Example_Text')
+
+    return CHUNK, FORMAT, CHANNELS, record_time, RATE
+
+if __name__ == '__main__':
     # execute_record()
     try:
         for text in parse_text(TEXTS[0]):
