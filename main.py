@@ -53,6 +53,7 @@ def init_record_setting():
 def record():
     init = init_record_setting()
     py_audio = pyaudio.PyAudio()
+    # create an PuyAudio instance 
     stream = py_audio.open(format=init['format'], channels=init['channel'], rate=init['rate'],
                             input=True, frames_per_buffer=init['chunk'])
     frames = []
