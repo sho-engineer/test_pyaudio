@@ -52,7 +52,7 @@ def init_record_setting():
     date_today = get_today_date()
     output_path =  os.path.join("recorded_voices", f'{date_today}_Example_Text')
 
-    return CHUNK, FORMAT, CHANNELS, record_time, RATE
+    return {'chunk':CHUNK, 'format':FORMAT, 'channel':CHANNELS, 'record_time':record_time, 'rate':RATE }
 
 if __name__ == '__main__':
     # execute_record()
