@@ -48,7 +48,30 @@ def init_record_setting():
     date_today = get_today_date()
     output_path =  os.path.join("recorded_voices", f'{date_today}_Example_Text')
 
-    return {'chunk':CHUNK, 'format':FORMAT, 'channel':CHANNELS, 'record_time':record_time, 'rate':RATE }
+    return {'chunk':CHUNK, 'format':FORMAT, 'channel':CHANNELS, 'record_time':record_time, 'rate':RATE, 'output_path':output_path }
+
+def record():
+    init = init_record_setting()
+    py_audio = pyaudio.PyAudio()
+    stream = py_audio.open(format=init['format'], channels=init['channel'], rate=init['rate'],
+                            input=True, frames_per_buffer=init['chunk'])
+    frames = []
+    for i in range(0, int(init['rate'] / init['chunk'] * init['record_time'])):
+        data = stream.read(init['chunk'])
+        frames.append(data)
+    stream.stop_stream()
+    stream.close()
+    py_audio.terminate()
+    output_wave_file(frames=frames, pyaudio=py_audio)
+
+def output_wave_file(frames, pyaudio):
+    init = init_record_setting()
+    wf = wave.open(init['output_path'], 'wb')
+    wf.setnchannels(init['channel'])
+    wf.setsampwidth(pyaudio.get_sample_size(init['format']))
+    wf.setframerate(init['rate'])
+    wf.writeframes(b''.join(frames))
+    wf.close()
 
 if __name__ == '__main__':
     # execute_record()
