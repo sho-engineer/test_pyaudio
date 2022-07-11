@@ -88,6 +88,20 @@ def output_wave_file(frames, pyaudio):
 if __name__ == '__main__':
     # execute_record()
     try:
+def wave_pyplot(file):
+    '''
+    plot a waveform on a graph
+    :param file string file name 
+    '''
+    y,sr = librosa.load(file)
+    time = np.arange(0, len(y)) / sr
+    print(time)
+    plt.plot(time, y)
+    plt.title(file)
+    plt.xlabel("Time")
+    plt.ylabel("Sound Amplitude")
+    plt.show()
+
         record_data = record()
         output_wave_file(record_data[0], record_data[1])
         # for text in parse_text(TEXTS[0]):
