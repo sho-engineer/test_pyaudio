@@ -102,21 +102,19 @@ def wave_pyplot(file):
     plt.ylabel("Sound Amplitude")
     plt.show()
 
-        record_data = record()
-        output_wave_file(record_data[0], record_data[1])
-        # for text in parse_text(TEXTS[0]):
-        #     input_text = execute_dictation()
-        #     lower_input_text = upper_to_lower(input_text)
-        #     text = upper_to_lower(text)
-        #     print(input_text)
-        #     print(text)
-        #     if input_text == 'stop':
-        #         print('Recordig stopped ...')
-        #         break
-
-        #     if lower_input_text == text:
-        #         print("correct")
-        #     else:
-        #         print('false')
+if __name__ == '__main__':
+    try:
+        record()
+        text = execute_dictation()
+        today = get_today_date()
+        file_name = ''
+        dir = os.listdir('../recorded_voices/')
+        for file in dir:
+            if file == f'{today}.wav':
+                file_name = file
+        # print(file_name)
+        if file_name:
+            wave_pyplot(f'../recorded_voices/{today}.wav')
+        print('recording ends')
     except Exception as e:
         print(f'error occured: {e}')
